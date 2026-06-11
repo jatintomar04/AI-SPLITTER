@@ -11,7 +11,7 @@ const SearchUserModal = ({  open, onClose, onSearch, onSendRequest,selectedGroup
  const {searchedUser,message} = useSelector((state)=>state.user)
 
 
- const dispatch = useDispatch()
+ const dispatch = useDispatch();
   useEffect(() => {
     if (message) {
       toast.success(message);
