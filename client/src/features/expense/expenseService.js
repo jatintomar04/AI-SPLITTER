@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/expense";
+const API_URL = "https://ai-splitter-0y72.onrender.com/api/expense";
 
 // GET ALL EXPENSES
 const getExpenses = async ( token) => {
