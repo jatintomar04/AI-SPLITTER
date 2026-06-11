@@ -71,6 +71,7 @@ const Expense = async (req, res) => {
             type: "expense",
             action: "created",
             data: expense,
+            
         });
 
         return res.status(201).json({
@@ -153,7 +154,7 @@ const getExpenses = async (req, res) => {
 const updateExpense = async (req, res) => {
     try {
         const { id } = req.params;
-        const { title, amount } = req.body
+        const { title, amount,type } = req.body
 
         const updatedExpense = await Expenses.findByIdAndUpdate(id, req.body, { returnDocument: "after" })
 

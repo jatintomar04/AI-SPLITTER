@@ -73,7 +73,7 @@ export const acceptRequest = createAsyncThunk(
 export const rejectRequest = createAsyncThunk(
   "friend/rejectRequest",
   async (requestId, thunkAPI) => {
-    console.log(requestId)
+   
     try {
       const token = thunkAPI.getState().auth.user.token;
 
@@ -88,6 +88,23 @@ export const rejectRequest = createAsyncThunk(
     }
   }
 );
+
+// leave group  
+
+export const leaveGroup = createAsyncThunk("leave/group",
+  async(groupId,thunkAPI)=>{
+     try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await friendService.leaveGroup(groupId,token)
+     } catch (error) {
+      const meessage = 
+      error.message?.data?.message||
+      error.message ||
+      "Somethind went wrong";
+      return thunkAPI.rejectWithValue(meessage)
+     }
+  }
+)
 
 // GET MY INVITES
 export const getInvites = createAsyncThunk(
@@ -213,6 +230,28 @@ const friendSlice = createSlice({
         state.message = action.payload;
       })
 
+      // leave group 
+      .addCase(leaveGroup.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(leaveGroup.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+
+        state.message = action.payload.message;
+
+        // Remove accepted invite from pending invites
+        state.invites = state.invites.filter(
+          (invite) => invite._id !== action.meta.arg
+        );
+      })
+      .addCase(leaveGroup.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
 
       // GET INVITES
       .addCase(getInvites.pending, (state) => {

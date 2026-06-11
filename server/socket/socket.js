@@ -11,14 +11,18 @@ const initializeSocket = (server) => {
   });
 
   io.on("connection", (socket) => {
-    
+    console.log("✅ User Connected:", socket.id);
 
     socket.on("register", (userId) => {
       onlineUsers[userId] = socket.id;
-   
+
+      console.log("✅ User Registered:", userId);
+      console.log("Online Users:", onlineUsers);
     });
 
     socket.on("disconnect", () => {
+      console.log("❌ User Disconnected:", socket.id);
+
       for (const userId in onlineUsers) {
         if (onlineUsers[userId] === socket.id) {
           delete onlineUsers[userId];

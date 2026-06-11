@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addExpense, getExpenses, updateExpense } from "../features/expense/expenseSlice";
+import { toast } from "react-toastify";
 
 const ExpenseForm = ({
   editingExpenseId,
@@ -10,12 +11,12 @@ const ExpenseForm = ({
   expenseType,
   activeGroupProfile,
 }) => {
- 
+  const { isLoading ,message} = useSelector((state) => state.expense);
 
   const [form, setForm] = useState({
-    title : "",
-    amount : "",
-    type : "self"
+    title: "",
+    amount: "",
+    type: "self"
   })
 
   const dispatch = useDispatch();
@@ -33,6 +34,12 @@ const ExpenseForm = ({
       [e.target.name]: e.target.value,
     });
   };
+
+  useEffect(()=>{
+    if(message){
+      toast.success(message)
+    }
+  },[message])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,7 +61,7 @@ const ExpenseForm = ({
           expenseId: editingExpenseId,
           expenseData,
         })
-        
+
       );
       await dispatch(getExpenses())
     } else {
@@ -108,9 +115,13 @@ const ExpenseForm = ({
           onChange={handleChange}
           className="w-full bg-[#0a0a0a] text-white border border-white/10 rounded-lg px-3 py-2"
         >
-          <option value="group">
-            Group Expense ({activeGroupProfile?.name})
-          </option>
+         {
+          activeGroupProfile && (
+               <option value="group">
+              Group Expense ({activeGroupProfile?.name})
+            </option>
+          )
+         }
 
           <option value="self">
             Self Expense
@@ -119,9 +130,19 @@ const ExpenseForm = ({
 
         <button
           type="submit"
-          className="bg-[#c9a96e] hover:bg-[#e8c990] text-black py-2 rounded-lg"
+          disabled={isLoading}
+          className="bg-[#c9a96e] hover:bg-[#e8c990] text-black py-2 rounded-lg disabled:opacity-50"
         >
-          {editingExpenseId ? "Update Expense" : "Add Expense"}
+          {isLoading ? (
+            <div className="flex items-center justify-center gap-2">
+              <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+              Processing...
+            </div>
+          ) : editingExpenseId ? (
+            "Update Expense"
+          ) : (
+            "Add Expense"
+          )}
         </button>
       </form>
     </div>

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://ai-splitter-0y72.onrender.com/api/user";
+const API_URL = "http://localhost:8080/api/user";
 
 const searchUser = async (query, token) => {
   const config = {
@@ -66,6 +66,16 @@ const rejectRequest = async (requestId, token) => {
   return response.data;
 };
 
+const leaveGroup = async (groupID, token)=>{
+ const config = {
+  headers:{
+    Authorization :`Bearer ${token}`
+  }
+ }
+  const response = await axios.put( `${API_URL}/exit/${groupID}`,{},config)
+  return response.data
+}
+
 const getInvites = async (token) => {
   const config = {
     headers: {
@@ -81,12 +91,14 @@ const getInvites = async (token) => {
   return response.data;
 };
 
+
 const friendService = {
   searchUser,
   sendRequest,
   acceptRequest,
   getInvites,
-  rejectRequest
+  rejectRequest,
+  leaveGroup
 };
 
 export default friendService;

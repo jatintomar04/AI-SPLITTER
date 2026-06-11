@@ -56,31 +56,27 @@ const getGroupExpenses = async(req,res)=>{
 
 const getGroups = async (req, res) => {
   try {
-
     const userId = req.user._id;
 
     const groups = await Group.find({
       members: userId,
-    });
+    })
+      .populate("members", "name email profilePic")
+      .populate("createdBy", "name email");
 
-   if (!groups || groups.length === 0) {
-  return res.status(200).json({
-    message: "No Group Found!",
-    groups: []
-  });
-}
     return res.status(200).json({
       success: true,
       count: groups.length,
       groups,
     });
-
   } catch (error) {
     return res.status(500).json({
       message: error.message,
     });
   }
 };
+
+
 
 const removeGroup = async (req,res) =>{
  try {

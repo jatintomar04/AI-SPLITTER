@@ -85,7 +85,7 @@ const expenseSlice = createSlice({
 
   reducers: {
     resetExpenseState: (state) => {
-      state.loading = false;
+      state.isLoading = false;
       state.error = false;
       state.success = false;
       state.message = "";
@@ -97,43 +97,43 @@ const expenseSlice = createSlice({
 
       // GET
       .addCase(getExpenses.pending, (state) => {
-        state.loading = true;
+        state.isLoading = true;
       })
       .addCase(getExpenses.fulfilled, (state, action) => {
-        state.loading = false;
+        state.isLoading = false;
         state.success = true;
         state.expenses = action.payload;
       })
       .addCase(getExpenses.rejected, (state, action) => {
-        state.loading = false;
+        state.isLoading = false;
         state.error = true;
         state.message = action.payload;
       })
 
       // ADD
       .addCase(addExpense.pending, (state) => {
-        state.loading = true;
+        state.isLoading = true;
       })
       .addCase(addExpense.fulfilled, (state, action) => {
-        state.loading = false;
+        state.isLoading = false;
         state.success = true;
         state.message = action.payload.message;
       })
       .addCase(addExpense.rejected, (state, action) => {
-        state.loading = false;
+        state.isLoading = false;
         state.error = true;
         state.message = action.payload;
       })
 
       // UPDATE
       .addCase(updateExpense.fulfilled, (state, action) => {
-        state.loading = false;
+        state.isLoading = false;
         state.success = true;
         state.message = action.payload.message;
       })
 
       .addCase(deleteExpense.fulfilled, (state, action) => {
-        state.loading = false;
+        state.isLoading = false;
         state.success = true;
         state.message = action.payload.message;
       })

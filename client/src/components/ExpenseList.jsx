@@ -22,7 +22,6 @@ const ExpenseList = ({
     (state) => state.expense
   );
 
-  
   useEffect(() => {
     dispatch(getExpenses())
   }, [dispatch])

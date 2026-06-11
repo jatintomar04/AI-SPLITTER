@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchUser, sendRequest } from '../features/user/userSlice';
+import { toast } from 'react-toastify';
 
 const SearchUserModal = ({  open, onClose, onSearch, onSendRequest,selectedGroupProfile }) => {
 
   
   const [query, setQuery] = useState('');
  
- const {searchedUser} = useSelector((state)=>state.user)
+ const {searchedUser,message} = useSelector((state)=>state.user)
+
+
  const dispatch = useDispatch()
+  useEffect(() => {
+    if (message) {
+      toast.success(message);
+    }
+  }, [message]);
+
   if (!open) return null;
+
+
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -29,6 +40,7 @@ const SearchUserModal = ({  open, onClose, onSearch, onSendRequest,selectedGroup
     })
   );
 };
+
 
   return (
     <div className="fixed inset-0 bg-black/85 backdrop-blur-md flex items-center justify-center z-[1000] p-4 font-dm animate-fade-in">

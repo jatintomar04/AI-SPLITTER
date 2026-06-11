@@ -183,6 +183,45 @@ const rejectRequest = async (req, res) => {
     }
 }
 
+const exitGroup = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = req.user._id;
+
+    const findGroup = await Group.findById(id);
+
+    if (!findGroup) {
+      return res.status(404).json({
+        message: "Group not found",
+      });
+    }
+
+    // Check member exists
+    if (!findGroup.members.includes(userId)) {
+      return res.status(400).json({
+        message: "You are not a member of this group",
+      });
+    }
+
+    // Remove user from members array
+    findGroup.members = findGroup.members.filter(
+      (member) => member.toString() !== userId.toString()
+    );
+
+    await findGroup.save();
+
+    return res.status(200).json({
+      message: "Successfully left the group",
+      group: findGroup,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+
 const getMYinvite = async (req, res) => {
     try {
         const userId = req.user._id
@@ -208,4 +247,4 @@ const getMYinvite = async (req, res) => {
 }
 
 
-module.exports = { searchUser, rejectRequest, sendInvite, acceptInvite, getMYinvite }
+module.exports = { searchUser, exitGroup,rejectRequest, sendInvite, acceptInvite, getMYinvite }

@@ -7,6 +7,7 @@ import { getAllGroups } from "../features/group/groupSlice";
 
 const RequestPanel = () => {
   const{invites}= useSelector((state)=>state.user)
+  console.log(invites)
  
   
   const dispatch = useDispatch()
