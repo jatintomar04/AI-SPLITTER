@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // ── Tiny hook: fires when element enters viewport ──────────────────────────
 function useReveal() {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
-
+   
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -179,11 +179,13 @@ const PLANS = [
   },
 ];
 
+
+
 // ── Main Component ─────────────────────────────────────────────────────────
 const Home = () => {
   const [scrolled, setScrolled] = useState(false);
   const [heroVisible, setHeroVisible] = useState(false);
-
+  const navigate = useNavigate() 
   useEffect(() => {
     setTimeout(() => setHeroVisible(true), 100);
 
@@ -492,7 +494,7 @@ const Home = () => {
                   ))}
                 </ul>
 
-                <button
+                <button  onClick={()=> navigate("/login")}
                   className={`w-full py-3 rounded-lg text-sm font-medium ${
                     plan.featured
                       ? "bg-[#c9a96e] text-[#0a0a0a]"

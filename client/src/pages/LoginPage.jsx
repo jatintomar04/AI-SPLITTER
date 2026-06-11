@@ -132,13 +132,13 @@ const LoginPage = () => {
               </label>
 
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#f0ede8]/25">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2">
                   ✉
                 </span>
 
                 <input
                   type="email"
-                  placeholder="jatin@gmail.com"
+                  placeholder="example@gmail.com"
                   value={form.email}
                   onChange={set("email")}
                   className={`w-full bg-[#171717] border rounded-xl pl-10 pr-4 py-3.5 text-[#f0ede8] text-sm placeholder-[#f0ede8]/20 outline-none transition-all duration-200 font-dm
