@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://ai-splitter-0y72.onrender.com/api/group";
+const API_URL = "http://localhost:8080/api/group";
 
 // CREATE GROUP
 const createGroup = async (groupData, token) => {

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = `https://ai-splitter-0y72.onrender.com/api/ai`;
+const API_URL = `http://localhost:8080/api/ai`;
 
 // SELF AI CHAT
 const selfChat = async (prompt, token) => {
