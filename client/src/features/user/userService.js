@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/user";
+const API_URL = "https://ai-splitter-0y72.onrender.com/api/user";
 
 const searchUser = async (query, token) => {
   const config = {
