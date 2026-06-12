@@ -35,7 +35,7 @@ const RequestPanel = () => {
           <div>
             <h4 className="text-white">From : {r.user.name}</h4>
             <p className="text-xs text-gray-500">
-                  Request for {r.group.name}  Group.
+                  Request for {r.group?.name}  Group.
             </p>
           </div>
 
