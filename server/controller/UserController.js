@@ -23,7 +23,7 @@ const searchUser = async (req, res) => {
 
        
 
-        if (!user) {
+        if (user.length === 0) {
             return res.status(400).json({
                 message: "User Not Found!"
             })
