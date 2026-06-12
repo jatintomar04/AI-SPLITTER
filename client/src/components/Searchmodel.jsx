@@ -22,15 +22,22 @@ const SearchUserModal = ({  open, onClose, onSearch, onSendRequest,selectedGroup
 
 
 
-  const handleInputChange = (e) => {
-    const value = e.target.value;
-    setQuery(value);
-    
-    dispatch(searchUser(value))
-    if (onSearch) {
-      onSearch(value.trim());
-    }
-  };
+const handleInputChange = (e) => {
+  const value = e.target.value;
+  setQuery(value);
+
+  if (!value.trim()) {
+    if (onSearch) onSearch("");
+    return;
+  }
+
+  dispatch(searchUser(value));
+
+  if (onSearch) {
+    onSearch(value.trim());
+  }
+};
+
   const handleSendRequest = (user_id) => {
   
   dispatch(
