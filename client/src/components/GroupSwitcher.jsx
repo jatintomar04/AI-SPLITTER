@@ -46,7 +46,10 @@ const GroupSwitcher = ({
       <div className="flex flex-col gap-2">
         {groups?.map((group) => {
           const isSelected = selectedGroupProfile === group?._id;
-
+const creatorId =
+  typeof group?.createdBy === "object"
+    ? group?.createdBy?._id
+    : group?.createdBy;
           return (
             <div
               key={group?._id}
@@ -101,7 +104,9 @@ const GroupSwitcher = ({
                 </button>
 
                 {/* Leave Group */}
-                {user?._id !== group?.createdBy?._id && (
+                
+                {
+                user?._id !== creatorId && (
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
@@ -114,7 +119,7 @@ const GroupSwitcher = ({
                 )}
 
                 {/* Delete Group */}
-                {user?._id === group?.createdBy?._id && (
+                {user?._id === creatorId && (
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
