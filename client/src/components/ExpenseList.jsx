@@ -32,11 +32,11 @@ const ExpenseList = ({
     }
   }, [isError,message]);
 
-  if (isLoading) {
-    return (
-      <Loading />
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <Loading />
+  //   );
+  // }
 
   const expenseList = expenses?.expenses || [];
   const targetExpenses = expenseList.filter((item) => {
