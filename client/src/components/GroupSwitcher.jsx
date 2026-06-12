@@ -101,7 +101,7 @@ const GroupSwitcher = ({
                 </button>
 
                 {/* Leave Group */}
-                {user?._id !== group?.createdBy && (
+                {user?._id !== group?.createdBy?._id && (
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
@@ -114,7 +114,7 @@ const GroupSwitcher = ({
                 )}
 
                 {/* Delete Group */}
-                {user?._id === group?.createdBy._id && (
+                {user?._id === group?.createdBy?._id && (
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
