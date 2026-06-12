@@ -45,7 +45,8 @@ const dispatch = useDispatch()
     socket.emit("register", user._id);
   }
 }, [user]);
-
+ 
+// send request 
 
 useEffect(() => {
   const handleNotification = (data) => {
@@ -60,15 +61,18 @@ useEffect(() => {
   };
 }, [dispatch]);
 
+// handle real time  expense change 
+
 useEffect(() => {
-  const handleExpenseChange = () => {
+  const handleExpenseChange = (data) => {
+    console.log("Expense socket received:", data);
     dispatch(getExpenses());
   };
 
-  socket.on("expensesChanged", handleExpenseChange);
+  socket.on("dataUpdated", handleExpenseChange);
 
   return () => {
-    socket.off("expensesChanged", handleExpenseChange);
+    socket.off("dataUpdated", handleExpenseChange);
   };
 }, [dispatch]);
  
