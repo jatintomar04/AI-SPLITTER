@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteExpense, getExpenses } from "../features/expense/expenseSlice";
-import Loading from "./Loading";
 import { toast } from "react-toastify";
 
 const ExpenseList = ({
@@ -18,7 +17,7 @@ const ExpenseList = ({
 
   const dispatch = useDispatch()
 
-  const { expenses, isLoading,message, isError } = useSelector(
+  const { expenses,message, isError } = useSelector(
     (state) => state.expense
   );
 
@@ -32,11 +31,7 @@ const ExpenseList = ({
     }
   }, [isError,message]);
 
-  // if (isLoading) {
-  //   return (
-  //     <Loading />
-  //   );
-  // }
+
 
   const expenseList = expenses?.expenses || [];
   const targetExpenses = expenseList.filter((item) => {
